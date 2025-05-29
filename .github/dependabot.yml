@@ -4,11 +4,5 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    labels:
-      - rishabh5321🫂
-    assignees:
-      - "rishabh5321"
-    reviewers:
-      - "rishabh5321"
     commit-message:
       prefix: "chore(github):"
