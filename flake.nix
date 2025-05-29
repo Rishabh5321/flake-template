@@ -15,12 +15,11 @@
       default = pkgs.callPackage ./package.nix {};
     });
 
-    defaultPackage = forAllSystems ({ pkgs, ... }: pkgs.callPackage ./package.nix {});
-
-    devShells = forAllSystems ({ pkgs, ... }: {
-      default = pkgs.mkShell {
-        buildInputs = [ pkgs.callPackage ./package.nix {} ];
-      };
-    });
+    # Optional: uncomment to enable devShell
+    # devShells = forAllSystems ({ pkgs, ... }: {
+    #   default = pkgs.mkShell {
+    #     buildInputs = [ pkgs.callPackage ./package.nix {} ];
+    #   };
+    # });
   };
 }

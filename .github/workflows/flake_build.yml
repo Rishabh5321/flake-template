@@ -41,4 +41,4 @@ jobs:
         run: nix flake check
 
       - name: Build Nix Flake
-        run: nix build .#defaultPackage.x86_64-linux
+        run: nix build .
