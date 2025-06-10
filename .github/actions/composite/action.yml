@@ -1,0 +1,46 @@
+name: composite
+description: composite
+runs:
+  using: "composite"
+  steps:
+    - if: runner.os == 'Linux'
+      shell: bash
+      run: |
+        sudo chmod 1777 /mnt
+        sudo mkdir -p /mnt/tmp
+        sudo chmod 1777 /mnt/tmp
+        sudo rm -rf /tmp/*
+        sudo mount --bind /mnt/tmp /tmp
+        sudo mkdir -p /nix
+        sudo mkdir -p /mnt/nix
+        sudo mount --bind /mnt/nix /nix
+        df -h
+    - uses: cachix/install-nix-action@v31.4.0
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable-small
+        extra_nix_config: |
+          auto-optimise-store = true
+          always-allow-substitutes = true
+          builders-use-substitutes = true
+          min-free = 10240
+          download-buffer-size = 134217728
+          build-dir = /tmp
+          require-sigs = false
+          sandbox = relaxed
+          show-trace = true
+          warn-dirty = false
+          use-registries = false
+          use-cgroups = true
+          cores = 3
+          max-jobs = 3
+          experimental-features = nix-command flakes cgroups
+          extra-substituters = https://liramiko.cachix.org https://nix-community.cachix.org https://cache.nixos.org https://cache.garnix.io
+          extra-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= liramiko.cachix.org-1:jK+V6ujmsq8pTXnqcESWXeAy+LYNnG2mC+mOj2hhpZc=
+    - shell: bash
+      run: |
+        git config --global user.name "${GITHUB_ACTOR}"
+        git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git config --global --add push.autoSetupRemote true
+        git config --global --add push.default current
+        mkdir -p ~/.config/nixpkgs
+        echo '{allowUnfree = true;android_sdk.accept_license = true;}' > ~/.config/nixpkgs/config.nix
