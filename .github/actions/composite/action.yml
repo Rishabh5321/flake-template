@@ -34,8 +34,9 @@ runs:
           cores = 3
           max-jobs = 3
           experimental-features = nix-command flakes cgroups
-          extra-substituters = https://liramiko.cachix.org https://nix-community.cachix.org https://cache.nixos.org https://cache.garnix.io
-          extra-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= liramiko.cachix.org-1:jK+V6ujmsq8pTXnqcESWXeAy+LYNnG2mC+mOj2hhpZc=
+          extra-substituters = https://rishabh5321.cachix.org https://cache.nixos.org https://hyprland.cachix.org https://nixpkgs-wayland.cachix.org
+          extra-trusted-public-keys = rishabh5321.cachix.org-1:mxfBIH2XElE6ieFXXYBA9Ame4mVTbAf1TGR843siggk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= 
+
     - shell: bash
       run: |
         git config --global user.name "${GITHUB_ACTOR}"
